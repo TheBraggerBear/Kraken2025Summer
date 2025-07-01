@@ -101,6 +101,10 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    leftMotor1.setInverted(true);
+    leftMotor2.setInverted(true);
+    rightMotor1.setInverted(false);
+    rightMotor2.setInverted(false);
     leftMotor1.setNeutralMode(NeutralMode.Coast);
     leftMotor2.setNeutralMode(NeutralMode.Coast);
     rightMotor1.setNeutralMode(NeutralMode.Coast);
