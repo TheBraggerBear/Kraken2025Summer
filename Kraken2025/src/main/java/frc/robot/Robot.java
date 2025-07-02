@@ -102,13 +102,17 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     leftMotor1.setInverted(true);
+    leftMotor1.configOpenloopRamp(0.5);
     leftMotor2.setInverted(true);
+    leftMotor2.configOpenloopRamp(0.5);
     rightMotor1.setInverted(false);
+    rightMotor1.configOpenloopRamp(0.5);
     rightMotor2.setInverted(false);
-    leftMotor1.setNeutralMode(NeutralMode.Coast);
-    leftMotor2.setNeutralMode(NeutralMode.Coast);
-    rightMotor1.setNeutralMode(NeutralMode.Coast);
-    rightMotor2.setNeutralMode(NeutralMode.Coast);
+    rightMotor2.configOpenloopRamp(0.5);
+    leftMotor1.setNeutralMode(NeutralMode.Brake);
+    leftMotor2.setNeutralMode(NeutralMode.Brake);
+    rightMotor1.setNeutralMode(NeutralMode.Brake);
+    rightMotor2.setNeutralMode(NeutralMode.Brake);
   }
 
   /** This function is called periodically during operator control. */
