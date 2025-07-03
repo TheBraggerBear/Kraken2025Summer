@@ -26,6 +26,7 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Shooter shooter = new Shooter();
   private final IntakeArm intakeArm = new IntakeArm();
+  private final AirCompressor airCompressor = new AirCompressor();
   // private final DriveTrain driveTrain = new DriveTrain();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
