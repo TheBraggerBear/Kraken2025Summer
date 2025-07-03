@@ -59,11 +59,9 @@ public class IntakeArm extends SubsystemBase{
         // You can add code here to check the state of the intake arm or update its position
         System.out.println("IntakeArm is running");
         if (state == State.RAISED) {
-            intakeArmSolenoid.set(DoubleSolenoid.Value.kForward);
-            intakeArmSolenoid2.set(DoubleSolenoid.Value.kForward);
+            raise(); // Call the raise method to extend the intake arm
         } else if (state == State.LOWERED) {
-            intakeArmSolenoid.set(DoubleSolenoid.Value.kReverse);
-            intakeArmSolenoid2.set(DoubleSolenoid.Value.kReverse);
+            lower();
         }
     }
 
