@@ -54,9 +54,11 @@ public class RobotContainer {
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
     m_driverController.rightTrigger()
-        .whileTrue(shooter.fullSpeed()); // Example speed, adjust as needed;
+        .toggleOnTrue(shooter.fullSpeed().withTimeout(2).andThen(shooter.launchFrisbee())); // Example speed, adjust as needed;
     m_driverController.leftTrigger()
-        .whileTrue(shooter.halfSpeed());
+        .toggleOnTrue(shooter.halfSpeed().withTimeout(2).andThen(shooter.launchFrisbee())); // Example speed, adjust as needed;
+    m_driverController.rightBumper()
+        .whileTrue(shooter.changeState());
     m_driverController.a()
         .whileTrue(intakeArm.setState(IntakeArm.State.RAISED));
     m_driverController.b()
