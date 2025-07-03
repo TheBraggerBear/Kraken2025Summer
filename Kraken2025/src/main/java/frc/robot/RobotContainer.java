@@ -24,6 +24,7 @@ public class RobotContainer {
   private final Shooter shooter = new Shooter();
   private final IntakeArm intakeArm = new IntakeArm();
   private final DriveTrain driveTrain = new DriveTrain();
+  private final AirCompressor airCompressor = new AirCompressor();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
