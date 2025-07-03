@@ -23,7 +23,7 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Shooter shooter = new Shooter();
   private final IntakeArm intakeArm = new IntakeArm();
-  // private final DriveTrain driveTrain = new DriveTrain();
+  private final DriveTrain driveTrain = new DriveTrain();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -35,6 +35,14 @@ public class RobotContainer {
     configureBindings();
   }
 
+  public DriveTrain getDriveTrain() {
+    return driveTrain;
+  }
+
+  public CommandXboxController getDriverController() {
+    return m_driverController;
+  }
+  
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
    * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
@@ -45,7 +53,8 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // driveTrain.setDefaultCommand(driveTrain.drive(m_driverController.getRawAxis(1), m_driverController.getRawAxis(5)));
+    driveTrain.setDefaultCommand(driveTrain.arcadeDrive(m_driverController.getLeftY(), m_driverController.getRightX()));
+    
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
