@@ -28,8 +28,8 @@ public class DriveTrain extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        System.out.println("DriveTrain is running");
-        System.out.println("frontLeftMotor:"  + frontLeftMotor.getMotorOutputPercent());
+        // System.out.println("DriveTrain is running");
+        // System.out.println("frontLeftMotor:"  + frontLeftMotor.getMotorOutputPercent());
     }
 
     @Override
