@@ -32,8 +32,8 @@ public class IntakeArm extends SubsystemBase{
     }
     public IntakeArm() {
         // Initialize motors, sensors, etc.
-        intakeArmSolenoid = new Solenoid(PneumaticsModuleType.REVPH , 0); // Example ports for the solenoid
-        intakeArmSolenoid2 = new Solenoid(PneumaticsModuleType.REVPH, 1); // Example second solenoid ports
+        intakeArmSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM , 0); // Example ports for the solenoid
+        intakeArmSolenoid2 = new Solenoid(PneumaticsModuleType.CTREPCM, 1); // Example second solenoid ports
         // Set the initial state of the intake arm
         intakeArmSolenoid.set(false); // Set the solenoid to off initially
         intakeArmSolenoid2.set(false); // Set the second solenoid to off initially
