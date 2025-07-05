@@ -13,8 +13,8 @@ public class AirCompressor extends SubsystemBase {
     public AirCompressor() {
         // Initialize the compressor here if needed
         // For example, set up sensors or configure the compressor settings
-        compressor = new Compressor(PneumaticsModuleType.REVPH); // Use the REVPH module type for the compressor
-        compressor.enableDigital(); // Enable the compressor to run
+        compressor = new Compressor(PneumaticsModuleType.CTREPCM); // Use the REVPH module type for the compressor
+        compressor.enableDigital(); // Enable the compressor to r0un
 
     }
 
@@ -25,6 +25,7 @@ public class AirCompressor extends SubsystemBase {
         SmartDashboard.putBoolean("AirCompressor/Compressor Enabled", compressor.isEnabled());
         SmartDashboard.putBoolean("AirCompressor/Pressure Switch", compressor.getPressureSwitchValue());
         SmartDashboard.putNumber("AirCompressor/PSI", compressor.getPressure()); // Display the current pressure in PSI
+        System.out.println("Pressure:" + compressor.getPressure());
     }
     
     @Override
