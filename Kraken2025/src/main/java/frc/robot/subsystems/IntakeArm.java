@@ -70,8 +70,8 @@ public class IntakeArm extends SubsystemBase{
     public void simulationPeriodic() {
         // This method will be called once per scheduler run during simulation
         // You can add code here to simulate the intake arm's behavior
-        SmartDashboard.putString("IntakeArm/armSolenoid1", intakeArmSolenoid.get().toString());
-        SmartDashboard.putString("IntakeArm/armSolenoid2", intakeArmSolenoid2.get().toString());
+        SmartDashboard.putBoolean("IntakeArm/armSolenoid1", intakeArmSolenoid.get());
+        SmartDashboard.putBoolean("IntakeArm/armSolenoid2", intakeArmSolenoid2.get());
     }
     
 }
