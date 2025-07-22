@@ -28,6 +28,7 @@ public class RobotContainer {
   private final IntakeArm intakeArm = new IntakeArm();
   private final DriveTrain driveTrain = new DriveTrain();
   private final AirCompressor airCompressor = new AirCompressor();
+  private final Climber climber = new Climber();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -81,6 +82,8 @@ public class RobotContainer {
     m_driverController.povLeft().toggleOnTrue(shooter.moveServo(0.0));
     m_driverController.povRight().toggleOnTrue(shooter.moveServo(90.0));
     // m_driverController.povRight().whileTrue(shooter.)
+    m_driverController.y().whileTrue(climber.raiseClimber(0.1));
+    m_driverController.a().whileTrue(climber.raiseClimber(-0.1));
   }
 
   /**
