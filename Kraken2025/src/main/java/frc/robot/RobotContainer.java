@@ -56,18 +56,22 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-    m_driverController.rightTrigger()
-        .toggleOnTrue(shooter.fullSpeed().withTimeout(2).andThen(shooter.launchFrisbee())); // Example speed, adjust as needed;
+    m_driverController.b().whileTrue(shooter.changeState2());
+    m_driverController.a().whileTrue(shooter.changeState3());
+    m_driverController.x().whileTrue(shooter.changeState());
+    m_driverController.rightBumper().whileTrue(shooter.fireSolenoid2());
     m_driverController.leftTrigger()
-        .whileTrue(shooter.halfSpeed());
+        .whileTrue(shooter.fullSpeed()); // Example speed, adjust as needed;
+    m_driverController.rightTrigger()
+        .whileTrue(shooter.fireSolenoid1());
     // m_driverController.a()
-    //     .toggleOnTrue(intakeArm.setState(IntakeArm.State.RAISED).withTimeout(0.5).andThen(intakeArm.setState(IntakeArm.State.OFF)));
-    // m_driverController.b()
-    //     .toggleOnTrue(intakeArm.setState(IntakeArm.State.LOWERED).withTimeout(0.5).andThen(intakeArm.setState(IntakeArm.State.OFF)));
-    m_driverController.x()
-        .toggleOnTrue(intakeArm.changeState());
+    //     .toggleOnTrue(shooter.moveServo(180).withTimeout(2).andThen(shooter.moveServo(0))); // Example angle, adjust as needed
     // Add more trigger bindings as needed
+    m_driverController.povUp().toggleOnTrue(shooter.moveServo2(170.0));
+    m_driverController.povDown().toggleOnTrue(shooter.moveServo2(0.0));
+    m_driverController.povLeft().toggleOnTrue(shooter.moveServo(0.0));
+    m_driverController.povRight().toggleOnTrue(shooter.moveServo(90.0));
+    // m_driverController.povRight().whileTrue(shooter.)
   }
 
   /**

@@ -22,10 +22,6 @@ public class AirCompressor extends SubsystemBase {
     public void periodic() {
         // This method will be called once per scheduler run
         // You can add code here to check the compressor status or update its state
-        SmartDashboard.putBoolean("AirCompressor/Compressor Enabled", compressor.isEnabled());
-        SmartDashboard.putBoolean("AirCompressor/Pressure Switch", compressor.getPressureSwitchValue());
-        SmartDashboard.putNumber("AirCompressor/PSI", compressor.getPressure()); // Display the current pressure in PSI
-        System.out.println("Pressure:" + compressor.getPressure());
     }
     
     @Override
