@@ -67,8 +67,8 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(shooter.changeState2());
-    m_driverController.a().whileTrue(shooter.changeState3());
-    m_driverController.x().whileTrue(shooter.changeState());
+    m_driverController.x().whileTrue(shooter.changeState3());
+    // m_driverController.x().whileTrue(shooter.changeState());
     m_driverController.rightBumper().whileTrue(shooter.fireSolenoid2());
     m_driverController.leftTrigger()
         .whileTrue(shooter.fullSpeed()); // Example speed, adjust as needed;
@@ -82,8 +82,9 @@ public class RobotContainer {
     m_driverController.povLeft().toggleOnTrue(shooter.moveServo(0.0));
     m_driverController.povRight().toggleOnTrue(shooter.moveServo(90.0));
     // m_driverController.povRight().whileTrue(shooter.)
-    m_driverController.y().whileTrue(climber.raiseClimber(0.1));
-    m_driverController.a().whileTrue(climber.raiseClimber(-0.1));
+    m_driverController.y().whileTrue(climber.raiseClimber(0.25));
+    m_driverController.a().whileTrue(climber.raiseClimber(-0.25));
+    m_driverController.x().whileTrue(climber.raiseClimber(0.0));
   }
 
   /**

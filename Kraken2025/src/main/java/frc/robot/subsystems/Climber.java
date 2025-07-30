@@ -23,17 +23,17 @@ public class Climber extends SubsystemBase{
         climberMotor3.configOpenloopRamp(0.5);
         climberMotor4.configOpenloopRamp(0.5);
 
-        climberMotor1.setNeutralMode(NeutralMode.Brake);
-        climberMotor2.setNeutralMode(NeutralMode.Brake);
-        climberMotor3.setNeutralMode(NeutralMode.Brake);
-        climberMotor4.setNeutralMode(NeutralMode.Brake);
+        climberMotor1.setNeutralMode(NeutralMode.Coast);
+        climberMotor2.setNeutralMode(NeutralMode.Coast);
+        climberMotor3.setNeutralMode(NeutralMode.Coast);
+        climberMotor4.setNeutralMode(NeutralMode.Coast);
         
 
     }
 
     public Command raiseClimber(Double power) {
-        return run(() -> {
-            climberMotor1.set(power);
+        return runOnce(() -> {
+            // climberMotor1.set(power);
             climberMotor2.set(power);
             climberMotor3.set(power);
             climberMotor4.set(power);
