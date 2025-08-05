@@ -69,9 +69,11 @@ public class RobotContainer {
     m_driverController.povUp().onTrue(intakeArm.setIntakeArm(DoubleSolenoid.Value.kForward));
     m_driverController.povDown().onTrue(intakeArm.setIntakeArm(DoubleSolenoid.Value.kReverse));
 
-    m_driverController.y().whileTrue(climber.raiseClimber(0.25));
-    m_driverController.a().whileTrue(climber.raiseClimber(-0.25));
+    m_driverController.y().whileTrue(climber.raiseClimber(0.75));
+    m_driverController.a().whileTrue(climber.raiseClimber(-0.75));
     m_driverController.x().whileTrue(climber.raiseClimber(0.0));
+
+    m_driverController.b().onTrue(airCompressor.toggleCompressor());
   }
 
   /**
@@ -86,12 +88,12 @@ public class RobotContainer {
 
   public void teleopReset() {
     // Reset the drive train to its default state
-    driveTrain.driveTrain.stopMotor();
+    // driveTrain.driveTrain.stopMotor();
     // Reset the shooter to its default state
-    shooter.bigShooter.set(0);
-    shooter.smallShooter.set(0);
+    // shooter.bigShooter.set(0);
+    // shooter.smallShooter.set(0);
     // Reset the intake arm to its default state
-    intakeArm.setIntakeArm(DoubleSolenoid.Value.kOff).schedule();
+    // intakeArm.setIntakeArm(DoubleSolenoid.Value.kOff).schedule();
     // Reset the climber to its default state
     // climber.raiseClimber(0.0).schedule();
   }

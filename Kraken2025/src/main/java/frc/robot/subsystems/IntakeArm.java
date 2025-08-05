@@ -57,6 +57,7 @@ public class IntakeArm extends SubsystemBase{
     @Override
     public void periodic() {
         SmartDashboard.putString("IntakeArm/State", exampleDoubleSolenoid.get().toString());
+        System.out.println("Intake arm state" + exampleDoubleSolenoid.get().toString());
     }
 
     @Override
