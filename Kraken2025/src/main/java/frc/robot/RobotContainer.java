@@ -6,11 +6,8 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.*;
-
-import com.google.flatbuffers.ShortVector;
-
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -59,29 +56,19 @@ public class RobotContainer {
    */
   private void configureBindings() {
     driveTrain.setDefaultCommand(driveTrain.arcadeDrive(m_driverController.getLeftY(), m_driverController.getRightX()));
-    
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    m_driverController.b().whileTrue(shooter.changeState2());
-    m_driverController.x().whileTrue(shooter.changeState3());
-    // m_driverController.x().whileTrue(shooter.changeState());
+    new Trigger(() -> m_driverController.getLeftTriggerAxis() > 0.05) // Trigger activates when left trigger is pressed
+    .whileTrue(shooter.runAtOutput(m_driverController::getLeftTriggerAxis));
+    
     m_driverController.rightBumper().whileTrue(shooter.fireSolenoid2());
-    m_driverController.leftTrigger()
-        .whileTrue(shooter.fullSpeed()); // Example speed, adjust as needed;
     m_driverController.rightTrigger()
         .whileTrue(shooter.fireSolenoid1());
-    // m_driverController.a()
-    //     .toggleOnTrue(shooter.moveServo(180).withTimeout(2).andThen(shooter.moveServo(0))); // Example angle, adjust as needed
-    // Add more trigger bindings as needed
-    m_driverController.povUp().toggleOnTrue(shooter.moveServo2(170.0));
-    m_driverController.povDown().toggleOnTrue(shooter.moveServo2(0.0));
-    m_driverController.povLeft().toggleOnTrue(shooter.moveServo(0.0));
-    m_driverController.povRight().toggleOnTrue(shooter.moveServo(90.0));
-    // m_driverController.povRight().whileTrue(shooter.)
+
+    m_driverController.povLeft().toggleOnTrue(shooter.testMoveServo(180.0, shooter.armBlockingServo));
+    m_driverController.povRight().toggleOnTrue(shooter.testMoveServo(90.0, shooter.frisbeeBlockingServo));
+    m_driverController.povUp().onTrue(intakeArm.setIntakeArm(DoubleSolenoid.Value.kForward));
+    m_driverController.povDown().onTrue(intakeArm.setIntakeArm(DoubleSolenoid.Value.kReverse));
+
     m_driverController.y().whileTrue(climber.raiseClimber(0.25));
     m_driverController.a().whileTrue(climber.raiseClimber(-0.25));
     m_driverController.x().whileTrue(climber.raiseClimber(0.0));
@@ -95,5 +82,17 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return Autos.exampleAuto(m_exampleSubsystem);
+  }
+
+  public void teleopReset() {
+    // Reset the drive train to its default state
+    driveTrain.driveTrain.stopMotor();
+    // Reset the shooter to its default state
+    shooter.bigShooter.set(0);
+    shooter.smallShooter.set(0);
+    // Reset the intake arm to its default state
+    intakeArm.setIntakeArm(DoubleSolenoid.Value.kOff).schedule();
+    // Reset the climber to its default state
+    // climber.raiseClimber(0.0).schedule();
   }
 }

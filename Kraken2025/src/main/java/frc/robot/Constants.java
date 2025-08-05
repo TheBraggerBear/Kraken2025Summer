@@ -22,4 +22,20 @@ public final class Constants {
   public static class DriveTrainConstants {
     public static final NeutralMode kNeutralMode = NeutralMode.Coast;
   }
+
+  public static class ShooterConstants {
+    public static final int kBigShooterMotorID = 5; // Example motor ID
+    public static final int kSmallShooterMotorID = 6; // Example motor ID
+    public static final NeutralMode kShooterNeutralMode = NeutralMode.Coast; // Set the neutral mode for the shooter motors
+  }
+
+  public static class IntakeArmConstants {
+    public static final int kIntakeMotorID = 7; // Example motor ID for intake
+    public static final int kArmMotorID = 8; // Example motor ID for arm
+  }
+
+  public static class ClimberConstants {
+    public static final int kClimberMotorID = 9; // Example motor ID for climber
+    public static final NeutralMode kClimberNeutralMode = NeutralMode.Brake; // Set the neutral mode for the climber motors
+  }
 }

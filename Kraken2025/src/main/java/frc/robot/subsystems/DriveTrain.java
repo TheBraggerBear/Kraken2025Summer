@@ -55,10 +55,10 @@ public class DriveTrain extends SubsystemBase {
     public void simulationPeriodic() {
         // This method will be called once per scheduler run during simulation
         // Update SmartDashboard with motor outputs and positions
-        SmartDashboard.putNumber("Left Motor 1 Output", leftMotor1.get());
-        SmartDashboard.putNumber("Left Motor 2 Output", leftMotor2.get());
-        SmartDashboard.putNumber("Right Motor 1 Output", rightMotor1.get());
-        SmartDashboard.putNumber("Right Motor 2 Output", rightMotor2.get());
+        SmartDashboard.putNumber("DriveTrain/Left Motor 1 Output", leftMotor1.get());
+        SmartDashboard.putNumber("DriveTrain/Left Motor 2 Output", leftMotor2.get());
+        SmartDashboard.putNumber("DriveTrain/Right Motor 1 Output", rightMotor1.get());
+        SmartDashboard.putNumber("DriveTrain/Right Motor 2 Output", rightMotor2.get());
         
     }
 
