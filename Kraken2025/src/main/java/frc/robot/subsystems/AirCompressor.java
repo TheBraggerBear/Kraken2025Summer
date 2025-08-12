@@ -1,10 +1,10 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class AirCompressor extends SubsystemBase {
     // This subsystem is responsible for managing the air compressor.
@@ -14,8 +14,8 @@ public class AirCompressor extends SubsystemBase {
     public AirCompressor() {
         // Initialize the compressor here if needed
         // For example, set up sensors or configure the compressor settings
-        compressor = new Compressor(PneumaticsModuleType.CTREPCM); // Use the REVPH module type for the compressor
-        compressor.enableDigital(); // Enable the compressor to r0un
+        compressor = new Compressor(Constants.PnuematicConstants.PNUEMATIC_MODULE_TYPE); // Use the REVPH module type for the compressor
+        compressor.enableDigital(); // Enable the compressor to run
 
     }
 

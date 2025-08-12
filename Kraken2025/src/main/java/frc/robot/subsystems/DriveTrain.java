@@ -1,26 +1,23 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
     // left motors
-    private final WPI_VictorSPX leftMotor1 = new WPI_VictorSPX(0);
-    private final WPI_VictorSPX leftMotor2 = new WPI_VictorSPX(1);
+    private final WPI_VictorSPX leftMotor1 = new WPI_VictorSPX(Constants.DriveTrainConstants.FRONT_LEFT_MOTOR_ID);
+    private final WPI_VictorSPX leftMotor2 = new WPI_VictorSPX(Constants.DriveTrainConstants.BACK_LEFT_MOTOR_ID);
 
     // right motors
-    private final WPI_VictorSPX rightMotor1 = new WPI_VictorSPX(2);
-    private final WPI_VictorSPX rightMotor2 = new WPI_VictorSPX(3);
+    private final WPI_VictorSPX rightMotor1 = new WPI_VictorSPX(Constants.DriveTrainConstants.FRONT_RIGHT_MOTOR_ID);
+    private final WPI_VictorSPX rightMotor2 = new WPI_VictorSPX(Constants.DriveTrainConstants.BACK_RIGHT_MOTOR_ID);
 
+    // group the motors together
     private final MotorControllerGroup left = new MotorControllerGroup(leftMotor1, leftMotor2);
     private final MotorControllerGroup right = new MotorControllerGroup(rightMotor1, rightMotor2);
 
@@ -29,17 +26,17 @@ public class DriveTrain extends SubsystemBase {
 
     public DriveTrain() {
         leftMotor1.setInverted(true);
-        leftMotor1.configOpenloopRamp(0.5);
+        leftMotor1.configOpenloopRamp(Constants.DriveTrainConstants.OPEN_LOOP_RAMP);
         leftMotor2.setInverted(true);
-        leftMotor2.configOpenloopRamp(0.5);
+        leftMotor2.configOpenloopRamp(Constants.DriveTrainConstants.OPEN_LOOP_RAMP);
         rightMotor1.setInverted(false);
-        rightMotor1.configOpenloopRamp(0.5);
+        rightMotor1.configOpenloopRamp(Constants.DriveTrainConstants.OPEN_LOOP_RAMP);
         rightMotor2.setInverted(false);
-        rightMotor2.configOpenloopRamp(0.5);
-        leftMotor1.setNeutralMode(NeutralMode.Brake);
-        leftMotor2.setNeutralMode(NeutralMode.Brake);
-        rightMotor1.setNeutralMode(NeutralMode.Brake);
-        rightMotor2.setNeutralMode(NeutralMode.Brake);
+        rightMotor2.configOpenloopRamp(Constants.DriveTrainConstants.OPEN_LOOP_RAMP);
+        leftMotor1.setNeutralMode(Constants.DriveTrainConstants.NEUTRAL_MODE);
+        leftMotor2.setNeutralMode(Constants.DriveTrainConstants.NEUTRAL_MODE);
+        rightMotor1.setNeutralMode(Constants.DriveTrainConstants.NEUTRAL_MODE);
+        rightMotor2.setNeutralMode(Constants.DriveTrainConstants.NEUTRAL_MODE);
     }
 
     public Command arcadeDrive(double speed, double rotation) {
@@ -59,7 +56,6 @@ public class DriveTrain extends SubsystemBase {
         SmartDashboard.putNumber("DriveTrain/Left Motor 2 Output", leftMotor2.get());
         SmartDashboard.putNumber("DriveTrain/Right Motor 1 Output", rightMotor1.get());
         SmartDashboard.putNumber("DriveTrain/Right Motor 2 Output", rightMotor2.get());
-        
     }
 
 }

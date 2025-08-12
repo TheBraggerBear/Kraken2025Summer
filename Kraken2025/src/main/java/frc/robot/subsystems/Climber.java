@@ -1,39 +1,42 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Climber extends SubsystemBase{
-    WPI_VictorSPX climberMotor1 = new WPI_VictorSPX(7);
-    WPI_VictorSPX climberMotor2 = new WPI_VictorSPX(8);
-    WPI_VictorSPX climberMotor3 = new WPI_VictorSPX(9);
-    WPI_VictorSPX climberMotor4 = new WPI_VictorSPX(10);
-    AnalogPotentiometer climberPotentiometer = new AnalogPotentiometer(0, 3600, 0);    
+    WPI_VictorSPX climberMotor1 = new WPI_VictorSPX(Constants.ClimberConstants.CLIMBER_MOTOR_1_ID);
+    WPI_VictorSPX climberMotor2 = new WPI_VictorSPX(Constants.ClimberConstants.CLIMBER_MOTOR_2_ID);
+    WPI_VictorSPX climberMotor3 = new WPI_VictorSPX(Constants.ClimberConstants.CLIMBER_MOTOR_3_ID);
+    WPI_VictorSPX climberMotor4 = new WPI_VictorSPX(Constants.ClimberConstants.CLIMBER_MOTOR_4_ID);
+    AnalogPotentiometer climberPotentiometer = new AnalogPotentiometer(Constants.ClimberConstants.CLIMBER_POTENTIOMETER_CHANNEL, Constants.ClimberConstants.CLIMBER_POTENTIOMETER_MAX_ANGLE, 0);    
     
     public Climber () {
-        climberMotor1.configOpenloopRamp(0.5);
-        climberMotor2.configOpenloopRamp(0.5);
-        climberMotor3.configOpenloopRamp(0.5);
-        climberMotor4.configOpenloopRamp(0.5);
+        climberMotor1.configOpenloopRamp(Constants.ClimberConstants.OPEN_LOOP_RAMP);
+        climberMotor2.configOpenloopRamp(Constants.ClimberConstants.OPEN_LOOP_RAMP);
+        climberMotor3.configOpenloopRamp(Constants.ClimberConstants.OPEN_LOOP_RAMP);
+        climberMotor4.configOpenloopRamp(Constants.ClimberConstants.OPEN_LOOP_RAMP);
 
-        climberMotor1.setNeutralMode(NeutralMode.Coast);
-        climberMotor2.setNeutralMode(NeutralMode.Coast);
-        climberMotor3.setNeutralMode(NeutralMode.Coast);
-        climberMotor4.setNeutralMode(NeutralMode.Coast);
-        
-
+        climberMotor1.setNeutralMode(Constants.ClimberConstants.NEUTRAL_MODE);
+        climberMotor2.setNeutralMode(Constants.ClimberConstants.NEUTRAL_MODE);
+        climberMotor3.setNeutralMode(Constants.ClimberConstants.NEUTRAL_MODE);
+        climberMotor4.setNeutralMode(Constants.ClimberConstants.NEUTRAL_MODE);
     }
 
-    public Command raiseClimber(Double power) {
-        return runOnce(() -> {
+    public Command moveClimber(Double power) {
+        return runEnd(() -> {
             // climberMotor1.set(power);
             climberMotor2.set(power);
             climberMotor3.set(power);
             climberMotor4.set(power);
+        }, () -> {
+            // climberMotor1.set(0);
+            climberMotor2.set(0);
+            climberMotor3.set(0);
+            climberMotor4.set(0);
         });
     }
 

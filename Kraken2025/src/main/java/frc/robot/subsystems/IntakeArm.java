@@ -3,16 +3,16 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants;
 
 public class IntakeArm extends SubsystemBase{
     // Define motors, sensors, and other components here
-    DoubleSolenoid exampleDoubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 2);
+    DoubleSolenoid armDoubleSolenoid = new DoubleSolenoid(Constants.PnuematicConstants.PNUEMATIC_MODULE_TYPE, Constants.IntakeArmConstants.ARM_DOUBLESOLENOID_FORWARD_CHANNEL, Constants.IntakeArmConstants.ARM_DOUBLESOLENOID_REVERSE_CHANNEL);
     
     // public enum State {
     //     RAISED(DoubleSolenoid.Value.kForward), // Intake arm is raised
@@ -38,7 +38,7 @@ public class IntakeArm extends SubsystemBase{
 
     public IntakeArm() {
         // Initialize motors, sensors, etc.
-
+        armDoubleSolenoid.set(Constants.PnuematicConstants.DEFAULT_DOUBLESOLENOID_STATE); // Initialize the double solenoid to the off state
     }
 
 
@@ -48,16 +48,16 @@ public class IntakeArm extends SubsystemBase{
      */
     public Command setIntakeArm(Value state) {
         return new SequentialCommandGroup(
-            new InstantCommand(() -> exampleDoubleSolenoid.set(state)), // Set the solenoid to the desired state
-            new WaitCommand(1.0), // Wait for 1 second
-            new InstantCommand(() -> exampleDoubleSolenoid.set(Value.kOff)) // Turn the solenoid off
+            new InstantCommand(() -> armDoubleSolenoid.set(state)), // Set the solenoid to the desired state
+            new WaitCommand(2.5), // Wait for 2.5 seconds
+            new InstantCommand(() -> armDoubleSolenoid.set(Constants.PnuematicConstants.DEFAULT_DOUBLESOLENOID_STATE)) // Turn the solenoid to a default state (off state) after the wait
         );
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putString("IntakeArm/State", exampleDoubleSolenoid.get().toString());
-        System.out.println("Intake arm state" + exampleDoubleSolenoid.get().toString());
+        SmartDashboard.putString("IntakeArm/State", armDoubleSolenoid.get().toString());
+        System.out.println("Intake arm state" + armDoubleSolenoid.get().toString());
     }
 
     @Override

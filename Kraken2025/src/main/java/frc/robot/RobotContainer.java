@@ -55,25 +55,30 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    driveTrain.setDefaultCommand(driveTrain.arcadeDrive(m_driverController.getLeftY(), m_driverController.getRightX()));
+    driveTrain.setDefaultCommand(driveTrain.arcadeDrive(m_driverController.getLeftY(), m_driverController.getRightX())); // Pretty sure this doesn't work
 
+
+    
+    // Shooter Bindings
+    m_driverController.rightBumper().whileTrue(shooter.toggleLargeShooterPiston());
+    m_driverController.rightTrigger()
+        .whileTrue(shooter.shootFrisbee());
     new Trigger(() -> m_driverController.getLeftTriggerAxis() > 0.05) // Trigger activates when left trigger is pressed
     .whileTrue(shooter.runAtOutput(m_driverController::getLeftTriggerAxis));
-    
-    m_driverController.rightBumper().whileTrue(shooter.fireSolenoid2());
-    m_driverController.rightTrigger()
-        .whileTrue(shooter.fireSolenoid1());
 
+    // Intake and Arm Bindings
     m_driverController.povLeft().toggleOnTrue(shooter.testMoveServo(180.0, shooter.armBlockingServo));
     m_driverController.povRight().toggleOnTrue(shooter.testMoveServo(90.0, shooter.frisbeeBlockingServo));
-    m_driverController.povUp().onTrue(intakeArm.setIntakeArm(DoubleSolenoid.Value.kForward));
-    m_driverController.povDown().onTrue(intakeArm.setIntakeArm(DoubleSolenoid.Value.kReverse));
+    m_driverController.povUp().toggleOnTrue(intakeArm.setIntakeArm(DoubleSolenoid.Value.kForward));
+    m_driverController.povDown().toggleOnTrue(intakeArm.setIntakeArm(DoubleSolenoid.Value.kReverse));
 
-    m_driverController.y().whileTrue(climber.raiseClimber(0.75));
-    m_driverController.a().whileTrue(climber.raiseClimber(-0.75));
-    m_driverController.x().whileTrue(climber.raiseClimber(0.0));
+    // Climber Bindings
+    m_driverController.y().whileTrue(climber.moveClimber(0.75));
+    m_driverController.a().whileTrue(climber.moveClimber(-0.75));
+    m_driverController.x().whileTrue(climber.moveClimber(0.0));
 
-    m_driverController.b().onTrue(airCompressor.toggleCompressor());
+    // Air Compressor Bindings
+    m_driverController.b().onTrue(airCompressor.toggleCompressor()); // Pretty sure this doesn't work either
   }
 
   /**

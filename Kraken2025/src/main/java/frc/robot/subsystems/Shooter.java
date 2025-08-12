@@ -1,55 +1,47 @@
 package frc.robot.subsystems;
 
 import java.util.function.DoubleSupplier;
-
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
-import edu.wpi.first.units.measure.Angle;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
-    public WPI_VictorSPX bigShooter = new WPI_VictorSPX(5); // Example motor ID
-    public WPI_VictorSPX smallShooter = new WPI_VictorSPX(6); // Example motor ID
-    Solenoid exampleSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 1);
-    Solenoid exampleSolenoid2 = new Solenoid(PneumaticsModuleType.CTREPCM, 3);
-    public Servo frisbeeBlockingServo = new Servo(0); // Example servo for shooter angle adjustment, adjust port as needed
-    public Servo armBlockingServo = new Servo(1); // Example second servo for shooter angle adjustment, adjust port as needed
+    public WPI_VictorSPX bigShooter = new WPI_VictorSPX(Constants.ShooterConstants.BIG_SHOOTER_MOTOR_ID); 
+    public WPI_VictorSPX smallShooter = new WPI_VictorSPX(Constants.ShooterConstants.SMALL_SHOOTER_MOTOR_ID);
+    Solenoid frisbeeShootingSolenoid = new Solenoid(Constants.PnuematicConstants.PNUEMATIC_MODULE_TYPE, Constants.ShooterConstants.FRISBEE_SHOOTING_SOLENOID_CHANNEL);
+    Solenoid raisingSolenoid1 = new Solenoid(Constants.PnuematicConstants.PNUEMATIC_MODULE_TYPE, Constants.ShooterConstants.RAISING_SOLENOID_CHANNEL);
+    public Servo frisbeeBlockingServo = new Servo(Constants.ShooterConstants.FRISBEE_BLOCKING_SERVO_CHANNEL); // Example servo for shooter angle adjustment, adjust port as needed
+    public Servo armBlockingServo = new Servo(Constants.ShooterConstants.ARM_BLOCKING_SERVO_CHANNEL); // Example second servo for shooter angle adjustment, adjust port as needed
 
     public Shooter() {
-        bigShooter.setNeutralMode(NeutralMode.Coast); // Set the neutral mode for the shooter motors
-        smallShooter.setNeutralMode(NeutralMode.Coast); // Set the neutral mode for the shooter motors
-        bigShooter.setInverted(true);
-        smallShooter.setInverted(true);
+        bigShooter.setNeutralMode(Constants.ShooterConstants.NEUTRAL_MODE); // Set the neutral mode for the shooter motors
+        smallShooter.setNeutralMode(Constants.ShooterConstants.NEUTRAL_MODE); // Set the neutral mode for the shooter motors
+        bigShooter.setInverted(Constants.ShooterConstants.SHOOTER_INVERTED);
+        smallShooter.setInverted(Constants.ShooterConstants.SHOOTER_INVERTED);
 
-        exampleSolenoid.set(false);
-        exampleSolenoid2.set(false);
-        frisbeeBlockingServo.setAngle(90);
-        armBlockingServo.setAngle(0);
+        frisbeeShootingSolenoid.set(Constants.PnuematicConstants.DEFAULT_SINGLESOLENOID_STATE);
+        raisingSolenoid1.set(Constants.PnuematicConstants.DEFAULT_SINGLESOLENOID_STATE);
+        frisbeeBlockingServo.setAngle(Constants.ShooterConstants.FRISBEE_BLOCKING_SERVO_DEFAULT_ANGLE); // Initialize the blocking servo to a default angle
+        armBlockingServo.setAngle(Constants.ShooterConstants.ARM_BLOCKING_SERVO_DEFAULT_ANGLE);
         // raisingSolenoid1.set(false); // Initialize the raising solenoid to a default state (off)
-        // raisingSolenoid2.set(false); // Initialize the second raising solenoid to a default state (off)\
+        // raisingSolenoid2.set(false); // Initialize the second raising solenoid to a default state (off)
         // Initialize shooter motors, sensors, etc.
     }
 
-    public Command fireSolenoid1() {
+    public Command shootFrisbee() {
         return runOnce(() -> {
-        exampleSolenoid.toggle();}
+            frisbeeShootingSolenoid.toggle();}
         );
     }
 
-    public Command fireSolenoid2 () {
+    public Command toggleLargeShooterPiston() {
         return runOnce(() -> {
-        exampleSolenoid2.toggle(); });
+            raisingSolenoid1.toggle(); });
     }
-
 
     /*
      * This method moves the selected servo to the specified angle.
@@ -59,15 +51,31 @@ public class Shooter extends SubsystemBase {
      * @return A Command that, when executed, moves the specified servo to the given angle.
      */
     public Command testMoveServo(Double angle, Servo servo) {
-        return runEnd(() -> {
-            servo.setAngle(angle); // Set the angle of the second servo
-        }, () -> {
-            servo.setAngle(0); // Reset the servo to 90 degrees when the command ends
-        });
+        return new Command() {
+            @Override
+            public void initialize() {
+                servo.setAngle(angle); // Set the servo to the desired angle
+            }
+
+            @Override
+            public boolean isFinished() {
+                return false; // Keep running until explicitly canceled
+            }
+
+            @Override
+            public void end(boolean interrupted) {
+                servo.setAngle(0); // Reset the servo to 0 degrees when the command ends
+            }
+        };
     }
 
-
-
+    /*
+     * This method sets the output percentage of both shooter motors.
+     * @param outputPercentage A DoubleSupplier that provides the desired output percentage (between -1.0 and 1.0).
+     * 
+     * @return A Command that, when executed, sets the output percentage of both shooter motors.
+     *         The motors will stop when the command ends.
+     */
     public Command runAtOutput(DoubleSupplier outputPercentage) {
         return runEnd(() -> {
             bigShooter.set((outputPercentage.getAsDouble())); // Set the output percentage for the big shooter motor
