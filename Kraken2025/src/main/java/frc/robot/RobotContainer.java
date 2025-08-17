@@ -28,7 +28,7 @@ public class RobotContainer {
   private final Climber climber = new Climber();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
+  public final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -55,7 +55,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    driveTrain.setDefaultCommand(driveTrain.arcadeDrive(m_driverController.getLeftY(), m_driverController.getRightX())); // Pretty sure this doesn't work
+    // driveTrain.setDefaultCommand(driveTrain.arcadeDrive(m_driverController.getLeftY(), m_driverController.getRightX())); // Pretty sure this doesn't work
 
 
     
@@ -73,8 +73,8 @@ public class RobotContainer {
     m_driverController.povDown().toggleOnTrue(intakeArm.setIntakeArm(DoubleSolenoid.Value.kReverse));
 
     // Climber Bindings
-    m_driverController.y().whileTrue(climber.moveClimber(0.75));
-    m_driverController.a().whileTrue(climber.moveClimber(-0.75));
+    m_driverController.y().whileTrue(climber.moveClimber(1.0));
+    m_driverController.a().whileTrue(climber.moveClimber(-1.0));
     m_driverController.x().whileTrue(climber.moveClimber(0.0));
 
     // Air Compressor Bindings

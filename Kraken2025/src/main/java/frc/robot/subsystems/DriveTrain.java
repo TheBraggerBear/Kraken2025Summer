@@ -39,9 +39,9 @@ public class DriveTrain extends SubsystemBase {
         rightMotor2.setNeutralMode(Constants.DriveTrainConstants.NEUTRAL_MODE);
     }
 
-    public Command arcadeDrive(double speed, double rotation) {
-        return run(() -> driveTrain.arcadeDrive(speed, rotation));
-    }
+    // public Command arcadeDrive(double speed, double rotation) {
+    //     return run(() -> driveTrain.arcadeDrive(speed, rotation));
+    // }
 
     @Override
     public void periodic() {

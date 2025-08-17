@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.DriveTrain;
 
 /**
  * The methods in this class are called automatically corresponding to each
@@ -19,6 +20,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
+  private final DriveTrain driveTrain;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -30,6 +32,7 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    driveTrain = new DriveTrain();
   }
 
   /**
@@ -99,9 +102,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     m_robotContainer.getDriveTrain().driveTrain
-    .arcadeDrive(m_robotContainer.getDriverController().getLeftY(),
-    m_robotContainer.getDriverController().getRightX());
-  }
+    .arcadeDrive(m_robotContainer.m_driverController.getLeftY(),
+    m_robotContainer.m_driverController.getRightX());
+    }
 
   @Override
   public void testInit() {
@@ -123,7 +126,7 @@ public class Robot extends TimedRobot {
   @Override
   public void simulationPeriodic() {
     m_robotContainer.getDriveTrain().driveTrain
-    .arcadeDrive(m_robotContainer.getDriverController().getLeftY(),
-    m_robotContainer.getDriverController().getRightX());
+    .arcadeDrive(m_robotContainer.m_driverController.getLeftY(),
+    m_robotContainer.m_driverController.getRightX());
   }
 }

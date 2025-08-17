@@ -23,10 +23,10 @@ public final class Constants {
   }
 
   public static class DriveTrainConstants {
-    public static final int FRONT_LEFT_MOTOR_ID = 1;
-    public static final int BACK_LEFT_MOTOR_ID = 2; 
-    public static final int FRONT_RIGHT_MOTOR_ID = 3;
-    public static final int BACK_RIGHT_MOTOR_ID = 4;
+    public static final int FRONT_LEFT_MOTOR_ID = 0;
+    public static final int BACK_LEFT_MOTOR_ID = 1; 
+    public static final int FRONT_RIGHT_MOTOR_ID = 2;
+    public static final int BACK_RIGHT_MOTOR_ID = 3;
     public static final double OPEN_LOOP_RAMP = 0.5; // seconds from 0 to full
     public static final NeutralMode NEUTRAL_MODE = NeutralMode.Coast;
   }
